@@ -19,23 +19,22 @@ class HandlelisterPage extends Component {
 
   componentWillReceiveProps(props) {
     const handlelister = props.handlelister;
-    debugger;
     if (handlelister && handlelister.length > 0) {
       if (this.state.gjeldendeHandleliste) {
-        // oppdaterGjeldendehandleliste(props);
         const id = this.state.gjeldendeHandleliste._id;
         const gjeldendeHandleliste = props.handlelister.find(liste =>
           liste._id === id
         );
-
+        // Må oppdatere gjeldende handleliste når vi henter alle varer for den
+        // som er trykket på
         this.setState({ gjeldendeHandleliste });
       }
     }
   }
 
   componentDidUpdate() {
+    // Sett første handleliste som gjeldende
     const handlelister = this.props.handlelister;
-    debugger;
     if (handlelister && handlelister.length > 0 && !this.state.gjeldendeHandleliste) {
       this.setState({ gjeldendeHandleliste: this.props.handlelister[0] });
     }
@@ -55,17 +54,23 @@ class HandlelisterPage extends Component {
     const handlelister = this.props.handlelister;
     // TODO: Dra handleliste ut i egen component med ekstra key-felt
     return handlelister.map(handleliste => {
-        return (
-          <li>
-            <button
-              className="handlelisteItem"
-              onClick={this.velgHandleliste.bind(this, handleliste)}
-              ref="visHandleliste">
-              { handleliste.tittel }
-            </button>
-          </li>
-        );
+      const gjeldende = this.state.gjeldendeHandleliste;
+      let classnames = "handlelisteItem";
+      if (gjeldende && gjeldende._id === handleliste._id) {
+        classnames += " gjeldendeHandlelisteKnapp"
       }
+      return (
+        <li
+          className="handlelisteItemWrapper"
+          key={handleliste._id}>
+          <button
+            className={classnames}
+            onClick={this.velgHandleliste.bind(this, handleliste)}
+            ref="visHandleliste">
+            { handleliste.tittel }
+          </button>
+        </li>
+      );}
     );
   }
 
@@ -97,9 +102,17 @@ class HandlelisterPage extends Component {
   }
 
   render() {
-
-    const bruker = this.props.currentUser
-      ? this.props.currentUser.username + '\'s'  : 'Mine';
+    const { currentUser } = this.props;
+    const erInnlogget = !!currentUser;
+    let bruker;
+    if (erInnlogget) {
+      const brukernavn = currentUser.username;
+      const sisteBokstavIBrukernavn = brukernavn[brukernavn.length - 1];
+      bruker = sisteBokstavIBrukernavn === 's' ? brukernavn + '\'' : brukernavn + 's';
+    } else {
+      bruker = 'Mine';
+    }
+    // const bruker = currentUser ? currentUser.username + '\'s'  : 'Mine';
 
     return (
       <div>

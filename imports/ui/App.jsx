@@ -93,12 +93,6 @@ class App extends Component {
 
           <AccountsUIWrapper />
 
-            <button
-              onClick={this.leggTilOppskrift.bind(this)}
-              ref="oppskriftInput">
-              Ny oppskrift
-            </button>
-
           { this.props.currentUser ?
             <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
               <input

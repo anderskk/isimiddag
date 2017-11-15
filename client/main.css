@@ -48,18 +48,21 @@ form {
   position: relative;
 }
 
-.new-task input {
+.nyVare input {
   box-sizing: border-box;
   padding: 10px 0;
   background: transparent;
   border: none;
   width: 100%;
-  padding-right: 80px;
   font-size: 1em;
 }
 
-.new-task input:focus{
+.nyVare input:focus{
   outline: 0;
+}
+
+.gjeldendeHandlelisteKnapp {
+  background-color: #888;
 }
 
 ul {
@@ -77,8 +80,21 @@ ul {
   position: relative;
 }
 
+.handlelisteItemWrapper {
+  position: relative;
+  list-style: none;
+  width: 200px;
+}
+
+.handlelisteItem:hover {
+  background-color: #888;
+}
+
 .handlelisteItem {
   padding: 10px;
+  width: 100%;
+  text-align: left;
+  border-width: 0 !important;
 }
 
 li {
@@ -99,6 +115,18 @@ li.checked .text {
   text-decoration: line-through;
 }
 
+.varelinje {
+  border-bottom: #eee solid 1px;
+}
+
+.utfoert {
+  color: #888;
+}
+
+.utfoert .varenavn {
+  text-decoration: line-through;
+}
+
 li.private {
   background: #eee;
   border-color: #ddd;
@@ -116,7 +144,7 @@ header .hide-completed {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .handlelisterOversikt {
@@ -124,9 +152,6 @@ header .hide-completed {
 }
 
 @media (max-width: 600px) {
-  li {
-    padding: 12px 15px;
-  }
 
   .search {
     width: 150px;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import classnames from 'classnames';
 
 import { Handlelister } from '../api/handlelister.js';
 
@@ -33,22 +34,28 @@ export default class Vare extends Component {
 
   renderVare() {
     const { vare } = this.props;
+    let vareClassName = 'varelinje';
+    if (vare.erUtfoert) {
+      vareClassName += ' utfoert';
+    }
     return (
-      <div className={"col-2" + vare.erUtfoert ? 'checked' : ''}>
+      <div className={vareClassName}>
         <input
           type="checkbox"
           readOnly
           checked={vare.erUtfoert}
           onClick={this.settUtfoert.bind(this)}
           />
-        { vare.varenavn }
+        <span className="varenavn">
+          { vare.varenavn }
+        </span>
       </div>
     );
   }
 
   renderNyVare() {
     return (
-      <form className="new-task" onSubmit={this.leggTilVare.bind(this)} >
+      <form className="nyVare" onSubmit={this.leggTilVare.bind(this)} >
         <input
           type="text"
           ref="varenavnInput"
