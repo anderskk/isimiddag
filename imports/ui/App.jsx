@@ -7,7 +7,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
 import { Oppskrifter } from '../api/oppskrifter.js';
 import Task from './Task.jsx';
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Oppskrift from './Oppskrift.jsx'
 
 class App extends Component {
@@ -90,8 +89,6 @@ class App extends Component {
             />
           Skjul ferdige oppgaver
           </label>
-
-          <AccountsUIWrapper />
 
           { this.props.currentUser ?
             <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >

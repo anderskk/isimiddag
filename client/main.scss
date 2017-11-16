@@ -16,6 +16,24 @@ body {
   font-size: 14px;
 }
 
+.navBar {
+  width: 100%;
+  background-color: #00897b;
+  padding: 2em 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.innlogging {
+  margin-right: 1em;
+}
+
+.lenke {
+  text-decoration: none;
+  color: black;
+  margin-left: 1em;
+}
+
 .container {
   max-width: 80%;
   margin: 0 auto;
@@ -71,30 +89,39 @@ ul {
   background: white;
 }
 
-.delete {
+.slettHandleliste {
   float: right;
   font-weight: bold;
   background: none;
-  font-size: 1em;
   border: none;
   position: relative;
+  font-size: 1em !important;
+
+  .material-icons {
+    font-size: 1em !important;
+  }
 }
+
+
 
 .handlelisteItemWrapper {
   position: relative;
   list-style: none;
-  width: 200px;
-}
-
-.handlelisteItem:hover {
-  background-color: #888;
+  width: 15em;
 }
 
 .handlelisteItem {
-  padding: 10px;
+  padding: 1em;
+  font-size: 16px;
   width: 100%;
   text-align: left;
   border-width: 0 !important;
+  &:hover {
+    background-color: #888;
+  }
+  &:focus {
+    outline: none;
+  }
 }
 
 li {
@@ -117,6 +144,7 @@ li.checked .text {
 
 .varelinje {
   border-bottom: #eee solid 1px;
+  padding: 0.5em;
 }
 
 .utfoert {
@@ -151,14 +179,31 @@ header .hide-completed {
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
 
-  .search {
-    width: 150px;
-    clear: both;
+  body {
+    font-size: 40px;
   }
 
-  .new-task input {
-    padding-bottom: 5px;
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+    min-height: 100%;
+    background: white;
+  }
+
+  .alleHandlelister {
+    .handlelisteItemWrapper {
+      width: 100vw;
+    }
+  }
+
+  .handlelisteItem {
+    font-size: 40px;
+  }
+
+  .vareCheckbox {
+    min-height: 2em;
+    min-width: 2em;
   }
 }

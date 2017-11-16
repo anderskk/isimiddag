@@ -40,7 +40,7 @@ Meteor.methods({
 
     Handlelister.update(handlelisteId, { $set: { tittel } });
   },
-  'handlelister.remove'(handlelisteId) {
+  'handlelister.slett'(handlelisteId) {
     check(handlelisteId, String);
 
     const handleliste = Handlelister.findOne(handlelisteId);

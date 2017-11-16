@@ -42,6 +42,7 @@ export default class Vare extends Component {
       <div className={vareClassName}>
         <input
           type="checkbox"
+          className="vareCheckbox"
           readOnly
           checked={vare.erUtfoert}
           onClick={this.settUtfoert.bind(this)}
@@ -67,11 +68,7 @@ export default class Vare extends Component {
 
   render() {
     const { vare } = this.props;
-    return (
-      <div>
-        { vare.varenavn ? this.renderVare() : this.renderNyVare() }
-      </div>
-    );
+    return !!vare.varenavn ? this.renderVare() : this.renderNyVare();
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
@@ -29,6 +30,8 @@ class HandlelisterPage extends Component {
         // som er trykket på
         this.setState({ gjeldendeHandleliste });
       }
+    } else {
+      this.setState({ gjeldendeHandleliste: null })
     }
   }
 
@@ -48,6 +51,11 @@ class HandlelisterPage extends Component {
 
   velgHandleliste(handleliste, event) {
     this.setState({ gjeldendeHandleliste: handleliste });
+    document.getElementById('gjeldendeHandleliste').scrollIntoView();
+  }
+
+  slettHandleliste(handleliste, event) {
+    Meteor.call('handlelister.slett', handleliste._id);
   }
 
   renderHandlelister() {
@@ -60,7 +68,7 @@ class HandlelisterPage extends Component {
         classnames += " gjeldendeHandlelisteKnapp"
       }
       return (
-        <li
+        <div
           className="handlelisteItemWrapper"
           key={handleliste._id}>
           <button
@@ -68,8 +76,12 @@ class HandlelisterPage extends Component {
             onClick={this.velgHandleliste.bind(this, handleliste)}
             ref="visHandleliste">
             { handleliste.tittel }
+            <button className="slettHandleliste" onClick={this.slettHandleliste.bind(this, handleliste)}>
+              <i className="material-icons">clear</i>
+            </button>
           </button>
-        </li>
+          
+        </div>
       );}
     );
   }
@@ -80,7 +92,7 @@ class HandlelisterPage extends Component {
 
     const tomVare = {};
     return (
-      <div>
+      <div id="gjeldendeHandleliste">
         { harVarer && gjeldendeHandleliste.varer.map((vare, index) => {
           return (
             <Vare
@@ -126,7 +138,7 @@ class HandlelisterPage extends Component {
         </header>
 
         <div className="col-2">
-          <ul>
+          <ul className="alleHandlelister">
             { this.renderHandlelister() }
           </ul>
 
