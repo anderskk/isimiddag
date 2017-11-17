@@ -12,7 +12,7 @@ const browserHistory = createBrowserHistory();
 
 export const renderRoutes = () => (
   <Router history={browserHistory}>
-    <div className="container">
+    <div className="app-container">
       <div className="navBar">
         <Link to='/' className="lenke">
           <i className="material-icons">restaurant_menu</i>

@@ -76,11 +76,12 @@ class HandlelisterPage extends Component {
             onClick={this.velgHandleliste.bind(this, handleliste)}
             ref="visHandleliste">
             { handleliste.tittel }
-            <button className="slettHandleliste" onClick={this.slettHandleliste.bind(this, handleliste)}>
+            <button
+              className="icon-knapp slettHandleliste"
+              onClick={this.slettHandleliste.bind(this, handleliste)}>
               <i className="material-icons">clear</i>
             </button>
           </button>
-          
         </div>
       );}
     );
@@ -124,17 +125,19 @@ class HandlelisterPage extends Component {
     } else {
       bruker = 'Mine';
     }
-    // const bruker = currentUser ? currentUser.username + '\'s'  : 'Mine';
 
     return (
       <div>
         <header>
-          <button
-            onClick={this.nyHandleliste.bind(this)}
-            ref="nyHandleliste">
-            Ny handleliste
-          </button>
-          <h1>{bruker} handlelister</h1>
+          <div className="col-2">
+            <h1>{bruker} handlelister</h1>
+            <button
+              onClick={this.nyHandleliste.bind(this)}
+              className="icon-knapp"
+              ref="nyHandleliste">
+              <i className="material-icons nyHandleliste">add_circle_outline</i>
+            </button>
+          </div>
         </header>
 
         <div className="col-2">

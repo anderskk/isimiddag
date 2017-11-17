@@ -34,16 +34,22 @@ body {
   margin-left: 1em;
 }
 
-.container {
+.app-container {
   max-width: 80%;
   margin: 0 auto;
   min-height: 100%;
   background: white;
 }
 
+.container {
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 4px;
+  margin: 1em;
+}
+
 header {
-  background: #d2edf4;
-  background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+  background: lightgrey;
   padding: 20px 15px 15px 15px;
   position: relative;
 }
@@ -89,11 +95,17 @@ ul {
   background: white;
 }
 
+.icon-knapp {
+  background: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .slettHandleliste {
   float: right;
   font-weight: bold;
-  background: none;
-  border: none;
   position: relative;
   font-size: 1em !important;
 
@@ -122,6 +134,10 @@ ul {
   &:focus {
     outline: none;
   }
+}
+
+.nyHandleliste {
+  color: #00897b;
 }
 
 li {
@@ -185,11 +201,16 @@ header .hide-completed {
     font-size: 40px;
   }
 
-  .container {
+  .app-container {
     max-width: 100%;
     margin: 0 auto;
     min-height: 100%;
     background: white;
+  }
+
+  .nyHandleliste {
+    color: #00897b;
+    font-size: 4em !important;
   }
 
   .alleHandlelister {
@@ -200,6 +221,10 @@ header .hide-completed {
 
   .handlelisteItem {
     font-size: 40px;
+  }
+
+  .material-icons {
+    font-size: 1.5em;
   }
 
   .vareCheckbox {

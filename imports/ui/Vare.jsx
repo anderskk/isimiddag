@@ -33,23 +33,25 @@ export default class Vare extends Component {
   }
 
   renderVare() {
-    const { vare } = this.props;
+    const { vare, vareIndex } = this.props;
     let vareClassName = 'varelinje';
     if (vare.erUtfoert) {
       vareClassName += ' utfoert';
     }
+    const id = 'vareCheckbox' + vareIndex;
     return (
       <div className={vareClassName}>
         <input
           type="checkbox"
           className="vareCheckbox"
+          id={id}
           readOnly
           checked={vare.erUtfoert}
           onClick={this.settUtfoert.bind(this)}
           />
-        <span className="varenavn">
-          { vare.varenavn }
-        </span>
+          <label for={id} className="varenavn">
+            { vare.varenavn }
+          </label>
       </div>
     );
   }
