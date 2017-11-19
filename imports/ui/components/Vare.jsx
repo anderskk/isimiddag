@@ -49,7 +49,7 @@ export default class Vare extends Component {
           checked={vare.erUtfoert}
           onClick={this.settUtfoert.bind(this)}
           />
-          <label for={id} className="varenavn">
+          <label htmlFor={id} className="varenavn">
             { vare.varenavn }
           </label>
       </div>
