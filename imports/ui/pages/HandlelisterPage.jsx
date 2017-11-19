@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import Vare from '../components/Vare.jsx';
+import Handleliste from '../components/Handleliste.jsx';
 import { Handlelister } from '../../api/handlelister.js';
 
 class HandlelisterPage extends Component {
@@ -60,7 +61,7 @@ class HandlelisterPage extends Component {
 
   renderHandlelister() {
     const handlelister = this.props.handlelister;
-    // TODO: Dra handleliste ut i egen component med ekstra key-felt
+    // TODO: Dra handlelister ut i egen component
     return handlelister.map(handleliste => {
       const gjeldende = this.state.gjeldendeHandleliste;
       let classnames = "handlelisteItem";
@@ -85,33 +86,6 @@ class HandlelisterPage extends Component {
         </div>
       );}
     );
-  }
-
-  renderGjeldendeHandleliste() {
-    const gjeldendeHandleliste = this.state.gjeldendeHandleliste;
-    const harVarer = !!gjeldendeHandleliste.varer;
-
-    const tomVare = {};
-    return (
-      <div id="gjeldendeHandleliste">
-        { harVarer && gjeldendeHandleliste.varer.map((vare, index) => {
-          return (
-            <Vare
-              key={gjeldendeHandleliste._id + index}
-              vare={vare}
-              vareIndex={index}
-              handlelisteId={gjeldendeHandleliste._id}
-              />
-            );}
-          )
-        }
-        {/* Burde kanskje ikke la Vare ta seg av dette? */}
-        <Vare
-          vare={tomVare}
-          handlelisteId={gjeldendeHandleliste._id}
-          />
-      </div>
-    )
   }
 
   render() {
@@ -145,7 +119,8 @@ class HandlelisterPage extends Component {
             { this.renderHandlelister() }
           </ul>
 
-          { this.state.gjeldendeHandleliste && this.renderGjeldendeHandleliste()}
+          { this.state.gjeldendeHandleliste &&
+            <Handleliste handleliste={ this.state.gjeldendeHandleliste } /> }
         </div>
       </div>
     );
