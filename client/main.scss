@@ -72,16 +72,16 @@ form {
   position: relative;
 }
 
-.nyVare input {
+.ny-vare input {
   box-sizing: border-box;
-  padding: 10px 0;
+  padding: 0 0 1em 1em;
   background: transparent;
   border: none;
   width: 100%;
   font-size: 1em;
 }
 
-.nyVare input:focus{
+.ny-vare input:focus{
   outline: 0;
 }
 
@@ -191,6 +191,13 @@ header .hide-completed {
   justify-content: flex-start;
 }
 
+.skal-slette-handleliste {
+  padding: 1em;
+  background-color: buttonface;
+  display: flex;
+  justify-content: space-between;
+}
+
 .handlelisterOversikt {
 
 }
@@ -206,6 +213,10 @@ header .hide-completed {
     margin: 0 auto;
     min-height: 100%;
     background: white;
+  }
+
+  .hjem-lenke {
+    font-size: 1.5em !important;
   }
 
   .nyHandleliste {
@@ -224,7 +235,7 @@ header .hide-completed {
   }
 
   .material-icons {
-    font-size: 1.5em;
+    font-size: 3em;
   }
 
   .vareCheckbox {

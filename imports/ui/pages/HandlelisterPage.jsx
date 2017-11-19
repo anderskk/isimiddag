@@ -15,7 +15,8 @@ class HandlelisterPage extends Component {
     super(props);
 
     this.state = {
-      gjeldendeHandleliste: null
+      gjeldendeHandleliste: null,
+      skalSlettes: null
     };
   }
 
@@ -55,37 +56,72 @@ class HandlelisterPage extends Component {
     document.getElementById('gjeldendeHandleliste').scrollIntoView();
   }
 
+  settSkalSlettes(handleliste) {
+    this.setState({ skalSlettes: handleliste })
+  }
+
   slettHandleliste(handleliste, event) {
     Meteor.call('handlelister.slett', handleliste._id);
+  }
+
+  renderStandardvisning(handleliste) {
+    const gjeldende = this.state.gjeldendeHandleliste;
+    let classnames = "handlelisteItem";
+    if (gjeldende && gjeldende._id === handleliste._id) {
+      classnames += " gjeldendeHandlelisteKnapp";
+    }
+    return (
+      <div
+        className="handlelisteItemWrapper"
+        key={handleliste._id}>
+        <button
+          className={classnames}
+          onClick={this.velgHandleliste.bind(this, handleliste)}
+          ref="visHandleliste">
+          { handleliste.tittel }
+          <button
+            className="icon-knapp slettHandleliste"
+            onClick={this.settSkalSlettes.bind(this, handleliste)}
+            // onClick={this.slettHandleliste.bind(this, handleliste)}
+            >
+            <i className="material-icons">clear</i>
+          </button>
+        </button>
+      </div>
+    );
+  }
+
+  renderSkalSlettesVisning() {
+    const handleliste = this.state.skalSlettes;
+    return (
+      <div className="skal-slette-handleliste">
+        Slett handleliste?
+        <div>
+          <button
+            className="icon-knapp"
+            onClick={this.slettHandleliste.bind(this, handleliste)}>
+            <i className="material-icons slett-ja">thumb_up</i>
+          </button>
+          <button
+            className="icon-knapp"
+            onClick={this.settSkalSlettes.bind(this, null)}>
+            <i className="material-icons slett-nei">thumb_down</i>
+          </button>
+        </div>
+      </div>
+    );
   }
 
   renderHandlelister() {
     const handlelister = this.props.handlelister;
     // TODO: Dra handlelister ut i egen component
     return handlelister.map(handleliste => {
-      const gjeldende = this.state.gjeldendeHandleliste;
-      let classnames = "handlelisteItem";
-      if (gjeldende && gjeldende._id === handleliste._id) {
-        classnames += " gjeldendeHandlelisteKnapp"
+      const skalSlettes = this.state.skalSlettes;
+      if (!!skalSlettes && handleliste._id === skalSlettes._id) {
+        return this.renderSkalSlettesVisning();
       }
-      return (
-        <div
-          className="handlelisteItemWrapper"
-          key={handleliste._id}>
-          <button
-            className={classnames}
-            onClick={this.velgHandleliste.bind(this, handleliste)}
-            ref="visHandleliste">
-            { handleliste.tittel }
-            <button
-              className="icon-knapp slettHandleliste"
-              onClick={this.slettHandleliste.bind(this, handleliste)}>
-              <i className="material-icons">clear</i>
-            </button>
-          </button>
-        </div>
-      );}
-    );
+      return this.renderStandardvisning(handleliste);
+    });
   }
 
   render() {

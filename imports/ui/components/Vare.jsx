@@ -13,13 +13,15 @@ export default class Vare extends Component {
     const varenavnNode = ReactDOM.findDOMNode(this.refs.varenavnInput);
     const varenavn = varenavnNode.value.trim();
 
-    const vare = {
-      varenavn,
-      erUtfoert: false
-    };
-    Meteor.call('handlelister.leggTilVare', this.props.handlelisteId, vare);
+    if (varenavn) {
+      const vare = {
+        varenavn,
+        erUtfoert: false
+      };
+      Meteor.call('handlelister.leggTilVare', this.props.handlelisteId, vare);
 
-    varenavnNode.value = '';
+      varenavnNode.value = '';
+    }
   }
 
   settUtfoert() {
@@ -58,7 +60,7 @@ export default class Vare extends Component {
 
   renderNyVare() {
     return (
-      <form className="nyVare" onSubmit={this.leggTilVare.bind(this)} >
+      <form className="ny-vare" onSubmit={this.leggTilVare.bind(this)} >
         <input
           type="text"
           ref="varenavnInput"

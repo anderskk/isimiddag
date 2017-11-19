@@ -15,7 +15,7 @@ export const renderRoutes = () => (
     <div className="app-container">
       <div className="navBar">
         <Link to='/' className="lenke">
-          <i className="material-icons">restaurant_menu</i>
+          <i className="material-icons hjem-lenke">restaurant_menu</i>
           Isi Middag
         </Link>
         <Link to='/handlelister' className="lenke">
