@@ -195,7 +195,7 @@ header .hide-completed {
 
 }
 
-@media (max-width: 1000px) {
+@media only screen and (max-device-width: 480px) {
 
   body {
     font-size: 40px;
