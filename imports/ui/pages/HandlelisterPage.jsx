@@ -82,7 +82,6 @@ class HandlelisterPage extends Component {
           <button
             className="icon-knapp slettHandleliste"
             onClick={this.settSkalSlettes.bind(this, handleliste)}
-            // onClick={this.slettHandleliste.bind(this, handleliste)}
             >
             <i className="material-icons">clear</i>
           </button>

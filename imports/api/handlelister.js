@@ -86,7 +86,15 @@ Meteor.methods({
 
     Handlelister.update(handlelisteId,  { $set: { varer } });
   },
-  'handlelister.settVareRekkefoelge'() {
-    // Ny varerekkefølge
+  'handlelister.endreRekkefoelgePaaVarer'(handlelisteId, varer) {
+    check(handlelisteId, String);
+    check(varer, Array);
+
+    const handleliste = Handlelister.findOne(handlelisteId);
+    if (handleliste.eier !== Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Handlelister.update(handlelisteId, { $set: { varer }})
   }
 });

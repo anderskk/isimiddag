@@ -15,7 +15,6 @@ if (Meteor.isServer) {
 Meteor.methods({
   'oppskrifter.insert'(ingredienser, tittel, beskrivelse, tidsestimat) {
 
-    debugger;
     // Make sure the user is logged in
     if (!Meteor.userId()) {
       throw new Meteor.Error('not-authorized');

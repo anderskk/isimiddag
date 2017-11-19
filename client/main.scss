@@ -198,6 +198,11 @@ header .hide-completed {
   justify-content: space-between;
 }
 
+.drag-handle {
+  position: relative;
+  top: 0.2em;
+}
+
 .handlelisterOversikt {
 
 }
@@ -235,7 +240,7 @@ header .hide-completed {
   }
 
   .material-icons {
-    font-size: 3em;
+    font-size: 1.5em;
   }
 
   .vareCheckbox {

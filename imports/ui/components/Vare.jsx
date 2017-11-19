@@ -71,6 +71,7 @@ export default class Vare extends Component {
   }
 
   render() {
+    console.log(this.props.vareIndex);
     const { vare } = this.props;
     return !!vare.varenavn ? this.renderVare() : this.renderNyVare();
   }
@@ -78,6 +79,6 @@ export default class Vare extends Component {
 
 Vare.propTypes = {
   vare: PropTypes.object.isRequired,
-  vareIndex: PropTypes.number,
+  vareIndex: PropTypes.number.isRequired,
   handlelisteId: PropTypes.string
 };
