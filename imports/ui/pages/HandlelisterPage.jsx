@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import Vare from '../Vare.jsx';
+import Vare from '../components/Vare.jsx';
 import { Handlelister } from '../../api/handlelister.js';
 
 class HandlelisterPage extends Component {

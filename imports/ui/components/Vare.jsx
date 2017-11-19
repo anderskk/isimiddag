@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 
-import { Handlelister } from '../api/handlelister.js';
+import { Handlelister } from '../../api/handlelister.js';
 
 export default class Vare extends Component {
 
