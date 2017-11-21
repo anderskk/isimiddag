@@ -34,6 +34,11 @@ export default class Vare extends Component {
     Meteor.call('handlelister.slettVare', handlelisteId, vare);
   }
 
+  onFocus() {
+    const varenavnNode = ReactDOM.findDOMNode(this.refs.varenavnInput);
+    varenavnNode.scrollIntoView({ behavior: "smooth" });
+  }
+
   renderVare() {
     const { vare, vareIndex } = this.props;
     let vareClassName = 'varelinje';
@@ -63,8 +68,10 @@ export default class Vare extends Component {
       <form className="ny-vare" onSubmit={this.leggTilVare.bind(this)} >
         <input
           type="text"
+          id="ny-vare"
           ref="varenavnInput"
           placeholder="Ny vare"
+          onFocus={ this.onFocus }
           />
       </form>
     );

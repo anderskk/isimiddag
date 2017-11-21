@@ -99,7 +99,7 @@ class HandlelisterPage extends Component {
           <button
             className="icon-knapp"
             onClick={this.slettHandleliste.bind(this, handleliste)}>
-            <i className="material-icons slett-ja">thumb_up</i>
+            <i className="material-icons">thumb_up</i>
           </button>
           <button
             className="icon-knapp"

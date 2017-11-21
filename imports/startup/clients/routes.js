@@ -18,11 +18,13 @@ export const renderRoutes = () => (
           <i className="material-icons hjem-lenke">restaurant_menu</i>
           Isi Middag
         </Link>
-        <Link to='/handlelister' className="lenke">
-          Handlelister
-        </Link>
-        <div className="innlogging">
-          <AccountsUIWrapper />
+        <div className="flex nowrap navbar-right">
+          <Link to='/handlelister' className="lenke">
+            Handlelister
+          </Link>
+          <div className="innlogging">
+            <AccountsUIWrapper />
+          </div>
         </div>
       </div>
       <Route exact path="/" component={App} />

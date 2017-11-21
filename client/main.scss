@@ -24,8 +24,13 @@ body {
   justify-content: space-between;
 }
 
+.navbar-right {
+  position: relative;
+  top: 0.6em;
+}
+
 .innlogging {
-  margin-right: 1em;
+  margin: 0 1em;
 }
 
 .lenke {
@@ -81,10 +86,6 @@ h1 {
       box-shadow: 0 0 10px #00897b;
     }
   }
-}
-
-.ny-vare input:focus{
-  // outline: 0;
 }
 
 #gjeldendeHandleliste {
@@ -221,10 +222,6 @@ header .hide-completed {
   color: #00897b;
 }
 
-.handlelisterOversikt {
-
-}
-
 @media only screen and (max-device-width: 480px) {
 
   body {
@@ -242,11 +239,6 @@ header .hide-completed {
     font-size: 1.5em !important;
   }
 
-  .nyHandleliste {
-    color: #00897b;
-    font-size: 4em !important;
-  }
-
   #gjeldendeHandleliste {
     width: 100%;
   }
@@ -261,11 +253,19 @@ header .hide-completed {
     font-size: 40px;
   }
 
+  .icon-knapp {
+    font-size: 0.7em;
+  }
+
   .material-icons {
     font-size: 2em;
   }
 
   .drag-handle {
     top: 0.07em;
+  }
+
+  .slett-nei {
+    margin-left: 0.5em;
   }
 }
