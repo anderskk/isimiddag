@@ -45,7 +45,7 @@ export default class Vare extends Component {
       <div className={vareClassName}>
         <input
           type="checkbox"
-          className="vareCheckbox"
+          className="vare-checkbox"
           id={id}
           readOnly
           checked={vare.erUtfoert}
@@ -64,14 +64,13 @@ export default class Vare extends Component {
         <input
           type="text"
           ref="varenavnInput"
-          placeholder="Skriv her"
+          placeholder="Ny vare"
           />
       </form>
     );
   }
 
   render() {
-    console.log(this.props.vareIndex);
     const { vare } = this.props;
     return !!vare.varenavn ? this.renderVare() : this.renderNyVare();
   }

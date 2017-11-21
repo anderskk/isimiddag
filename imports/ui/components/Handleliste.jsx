@@ -17,13 +17,16 @@ const DragHandle = SortableHandle(() =>
 );
 
 const SorterbarItem = SortableElement(({vare, vareIndex, id}) =>
-  <div className="col-2">
-    <DragHandle />
-    <Vare
-      vare={vare}
-      vareIndex={vareIndex}
-      handlelisteId={id}
-    />
+  <div>
+    <div className="flex nowrap">
+      <DragHandle />
+      <Vare
+        vare={vare}
+        vareIndex={vareIndex}
+        handlelisteId={id}
+      />
+    </div>
+    <hr />
   </div>
 );
 
