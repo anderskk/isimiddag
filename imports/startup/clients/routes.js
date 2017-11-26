@@ -14,7 +14,7 @@ export const renderRoutes = () => (
   <Router history={browserHistory}>
     <div className="app-container">
       <div className="navBar">
-        <Link to='/' className="lenke">
+        <Link to='/' className="lenke margin-left">
           <i className="material-icons hjem-lenke">restaurant_menu</i>
           Isi Middag
         </Link>

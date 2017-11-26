@@ -36,7 +36,6 @@ body {
 .lenke {
   text-decoration: none;
   color: black;
-  margin-left: 1em;
 }
 
 .app-container {
@@ -72,8 +71,7 @@ h1 {
 }
 
 .ny-vare {
-  padding-left: 1.5em;
-  padding-bottom: 1em;
+  padding: 1em 0 1em 1em;
   input {
     width: 90%;
     padding: 0.7em 0 0.7em 0.5em;
@@ -129,6 +127,7 @@ ul {
   position: relative;
   list-style: none;
   width: 15em;
+  border-bottom: 1px solid white;
 }
 
 .handlelisteItem {
@@ -143,6 +142,15 @@ ul {
   &:focus {
     outline: none;
   }
+}
+
+.ny-handleliste-input {
+  padding: 1em;
+  font-size: 16px;
+}
+
+.margin-left {
+  margin-left: 1em;
 }
 
 .nyHandleliste {
@@ -202,13 +210,6 @@ header .hide-completed {
   }
 }
 
-.col-2 {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
 .skal-slette-handleliste {
   padding: 1em;
   background-color: buttonface;
@@ -220,6 +221,11 @@ header .hide-completed {
   position: relative;
   top: 0.1em;
   color: #00897b;
+}
+
+.vare-wrapper {
+  border-bottom: 1px solid;
+  padding: 0.25em 0;
 }
 
 @media only screen and (max-device-width: 480px) {
@@ -263,6 +269,10 @@ header .hide-completed {
 
   .drag-handle {
     top: 0.07em;
+  }
+
+  .ny-handleliste-input {
+    font-size: 40px;
   }
 
   .slett-nei {
