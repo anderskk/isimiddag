@@ -86,10 +86,6 @@ h1 {
   }
 }
 
-#gjeldendeHandleliste {
-  margin-left: 0.3em;
-}
-
 .gjeldendeHandlelisteKnapp {
   background-color: #888;
 }
@@ -253,7 +249,7 @@ header .hide-completed {
 .vare-wrapper {
   border-bottom: 1px solid;
   padding: 0.25em 0;
-  margin-right: 0.5em;
+  margin: 0 0.5em;
 }
 
 @media only screen and (max-device-width: 480px) {

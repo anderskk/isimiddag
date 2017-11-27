@@ -102,26 +102,34 @@ class HandlelisterPage extends Component {
 
   renderStandardvisning(handleliste) {
     const gjeldende = this.state.gjeldendeHandleliste;
-    let classnames = "handlelisteItem";
-    if (gjeldende && gjeldende._id === handleliste._id) {
-      classnames += " gjeldendeHandlelisteKnapp";
-    }
+    const erGjeldende = gjeldende && gjeldende._id === handleliste._id;
+    const klasser = classnames({
+      handlelisteItem: true,
+      gjeldendeHandlelisteKnapp: erGjeldende
+    });
+    // let classnames = "handlelisteItem";
+    // if (gjeldende && gjeldende._id === handleliste._id) {
+    //   classnames += " gjeldendeHandlelisteKnapp";
+    // }
     return (
-      <div
-        className="handlelisteItemWrapper"
-        key={handleliste._id}>
-        <button
-          className={classnames}
-          onClick={this.velgHandleliste.bind(this, handleliste)}
-          ref="visHandleliste">
-          { handleliste.tittel }
+      <div>
+        <div
+          className="handlelisteItemWrapper"
+          key={handleliste._id}>
           <button
-            className="icon-knapp slettHandleliste"
-            onClick={this.settSkalSlettes.bind(this, handleliste)}
-            >
-            <i className="material-icons">clear</i>
+            className={ klasser }
+            onClick={this.velgHandleliste.bind(this, handleliste)}
+            ref="visHandleliste">
+            { handleliste.tittel }
+            <button
+              className="icon-knapp slettHandleliste"
+              onClick={this.settSkalSlettes.bind(this, handleliste)}
+              >
+              <i className="material-icons">clear</i>
+            </button>
           </button>
-        </button>
+        </div>
+        { erGjeldende && <Handleliste handleliste={ handleliste } /> }
       </div>
     );
   }
@@ -229,8 +237,8 @@ class HandlelisterPage extends Component {
             { this.renderHandlelister() }
           </ul>
 
-          { this.state.gjeldendeHandleliste &&
-            <Handleliste handleliste={ this.state.gjeldendeHandleliste } /> }
+          {/* { this.state.gjeldendeHandleliste &&
+            <Handleliste handleliste={ this.state.gjeldendeHandleliste } /> } */}
         </div>
       </div>
     );
