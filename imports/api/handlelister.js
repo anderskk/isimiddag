@@ -16,21 +16,24 @@ const checkVare = vare => {
 };
 
 Meteor.methods({
-  'handlelister.opprettHandleliste'() {
+  'handlelister.opprettHandleliste'(tittel) {
+    check(tittel, String);
+
 
     if (!Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
     }
 
     Handlelister.insert({
-      tittel: 'Ny handleliste!',
+      tittel,
       varer: [],
       opprettetDato: new Date(),
       eier: Meteor.userId(),
       brukernavn: Meteor.user().username,
     });
   },
-  'handlelister.nyTittel'(handlelisteId, tittel) {
+
+  'handlelister.angiTittel'(handlelisteId, tittel) {
     check(handlelisteId, String);
     check(tittel, String);
 
@@ -40,6 +43,7 @@ Meteor.methods({
 
     Handlelister.update(handlelisteId, { $set: { tittel } });
   },
+
   'handlelister.slett'(handlelisteId) {
     check(handlelisteId, String);
 
@@ -50,6 +54,7 @@ Meteor.methods({
 
     Handlelister.remove(handlelisteId);
   },
+
   'handlelister.leggTilVare'(handlelisteId, vare) {
     check(handlelisteId, String);
     checkVare(vare);
@@ -63,6 +68,7 @@ Meteor.methods({
     varer.push(vare);
     Handlelister.update(handlelisteId, { $set: { varer } });
   },
+
   'handlelister.oppdaterVare'(handlelisteId, vare, fjernVare) {
     check(fjernVare, Boolean);
     if (fjernVare) {
@@ -71,6 +77,7 @@ Meteor.methods({
       // oppdater varenavn eller antall
     }
   },
+
   'handlelister.settVareUtfoert'(handlelisteId, vareIndex) {
     check(handlelisteId, String);
     check(vareIndex, Number);
@@ -86,6 +93,7 @@ Meteor.methods({
 
     Handlelister.update(handlelisteId,  { $set: { varer } });
   },
+
   'handlelister.endreRekkefoelgePaaVarer'(handlelisteId, varer) {
     check(handlelisteId, String);
     check(varer, Array);

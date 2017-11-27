@@ -4,10 +4,14 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import classnames from 'classnames';
 
 import Vare from '../components/Vare.jsx';
 import Handleliste from '../components/Handleliste.jsx';
 import { Handlelister } from '../../api/handlelister.js';
+
+const formatterDato = dato =>
+  `${dato.getDate()}.${dato.getMonth()+1}.${dato.getUTCFullYear()}`;
 
 class HandlelisterPage extends Component {
 
@@ -16,7 +20,8 @@ class HandlelisterPage extends Component {
 
     this.state = {
       gjeldendeHandleliste: null,
-      skalSlettes: null
+      skalSlettes: null,
+      skalOppretteNyHandleliste: false
     };
   }
 
@@ -37,19 +42,50 @@ class HandlelisterPage extends Component {
     }
   }
 
-  componentDidUpdate() {
-    // Sett første handleliste som gjeldende
+  componentDidUpdate(prevProps) {
     const handlelister = this.props.handlelister;
-    if (handlelister && handlelister.length > 0 && !this.state.gjeldendeHandleliste) {
-      this.setState({ gjeldendeHandleliste: this.props.handlelister[0] });
+    const gjeldendeHandleliste = this.state.gjeldendeHandleliste;
+
+    const handlelisterFinnes = handlelister && handlelister.length > 0;
+    if (handlelisterFinnes) {
+      const handlelisterOppdatert = !gjeldendeHandleliste
+        || prevProps.handlelister.length < handlelister.length
+      if (handlelisterOppdatert) {
+        this.setState({ gjeldendeHandleliste: handlelister[0] });
+      }
     }
   }
 
-  nyHandleliste(event) {
-    event.preventDefault();
+  opprettHandleliste(event) {
+    if (event) {
+      event.preventDefault();
+    }
 
-    Meteor.call('handlelister.opprettHandleliste');
+    const tittelNode = ReactDOM.findDOMNode(this.refs.opprettHandlelisteInput);
+    let tittel = tittelNode.value.trim();
+    if (!tittel) {
+      tittel = formatterDato(new Date());
+    }
+
+    Meteor.call('handlelister.opprettHandleliste', tittel);
+
+    this.setState({
+      skalOppretteNyHandleliste: !this.state.skalOppretteNyHandleliste
+    });
+    ReactDOM.findDOMNode(this.refs.opprettHandlelisteInput).value = '';
   }
+
+  // angiTittel(handlelisteId, event) {
+  //   event.preventDefault();
+  //
+  //   const tittelNode = ReactDOM.findDOMNode(this.refs.tittelInput);
+  //   let tittel = tittelNode.value.trim();
+  //   if (!tittel) {
+  //     tittel = formatterDato(new Date());
+  //   }
+  //
+  //   Meteor.call('handlelister.angiTittel', handlelisteId, tittel);
+  // }
 
   velgHandleliste(handleliste, event) {
     this.setState({ gjeldendeHandleliste: handleliste });
@@ -123,6 +159,50 @@ class HandlelisterPage extends Component {
     });
   }
 
+  skalOppretteNyHandleliste(event) {
+    event.preventDefault();
+
+    const { skalOppretteNyHandleliste } = this.state;
+
+    this.setState({
+      skalOppretteNyHandleliste: !skalOppretteNyHandleliste
+    })
+  }
+
+  renderOpprettNyHandleliste() {
+    const { skalOppretteNyHandleliste } = this.state;
+
+    const inputKlasser = classnames({
+      'ny-handleliste-input': true,
+      transition: skalOppretteNyHandleliste
+    });
+
+    const icon = skalOppretteNyHandleliste
+      ? 'check_circle'
+      : 'add_circle_outline';
+    const fn = skalOppretteNyHandleliste
+      ? this.opprettHandleliste.bind(this)
+      : this.skalOppretteNyHandleliste.bind(this);
+
+      return (
+      <div className="flex">
+        <form onSubmit={ fn }>
+          <input
+            type="text"
+            className={ inputKlasser }
+            ref="opprettHandlelisteInput"
+            placeholder="Ny handleliste" />
+        </form>
+        <button
+          onClick={ fn }
+          className="icon-knapp ny-handleliste-knapp"
+          ref="nyHandleliste">
+          <i className="material-icons nyHandleliste">{ icon }</i>
+        </button>
+      </div>
+    )
+  }
+
   render() {
     const { currentUser } = this.props;
     const erInnlogget = !!currentUser;
@@ -138,18 +218,13 @@ class HandlelisterPage extends Component {
     return (
       <div>
         <header>
-          <div className="col-2">
+          <div className="flex">
             <h1>{bruker} handlelister</h1>
-            <button
-              onClick={this.nyHandleliste.bind(this)}
-              className="icon-knapp"
-              ref="nyHandleliste">
-              <i className="material-icons nyHandleliste">add_circle_outline</i>
-            </button>
+            { this.renderOpprettNyHandleliste() }
           </div>
         </header>
 
-        <div className="col-2">
+        <div className="flex">
           <ul className="alleHandlelister">
             { this.renderHandlelister() }
           </ul>
@@ -171,7 +246,7 @@ export default withTracker(() => {
   Meteor.subscribe('handlelister');
 
   return {
-    handlelister: Handlelister.find({}).fetch(),
+    handlelister: Handlelister.find({}, { sort: { opprettetDato: -1 } }).fetch(),
     currentUser: Meteor.user()
   };
 })(HandlelisterPage);

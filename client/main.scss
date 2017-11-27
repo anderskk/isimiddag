@@ -144,9 +144,36 @@ ul {
   }
 }
 
+// .ny-handleliste-input {
+//   padding: 1em;
+//   font-size: 16px;
+// }
+
 .ny-handleliste-input {
-  padding: 1em;
+  width: 1px;
   font-size: 16px;
+  width: 1px;
+  visibility: hidden;
+  transition-property: all;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+  &.transition {
+    padding: 0.5em;
+    visibility: visible;
+    width: 10em;
+  }
+}
+
+.ny-handleliste-knapp {
+  transition-property: all;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+}
+
+.knapp-animation {
+  position: absolute;
+  left: 14em;
+  bottom: 1em;
 }
 
 .margin-left {
@@ -226,6 +253,7 @@ header .hide-completed {
 .vare-wrapper {
   border-bottom: 1px solid;
   padding: 0.25em 0;
+  margin-right: 0.5em;
 }
 
 @media only screen and (max-device-width: 480px) {
@@ -243,6 +271,10 @@ header .hide-completed {
 
   .hjem-lenke {
     font-size: 1.5em !important;
+  }
+
+  .ny-handleliste-input {
+    font-size: 40px;
   }
 
   #gjeldendeHandleliste {

@@ -18,7 +18,7 @@ const DragHandle = SortableHandle(() =>
 
 const SorterbarItem = SortableElement(({vare, vareIndex, id}) =>
   <div>
-    <div className="flex nowrap">
+    <div className="flex nowrap vare-wrapper">
       <DragHandle />
       <Vare
         vare={vare}
@@ -26,7 +26,6 @@ const SorterbarItem = SortableElement(({vare, vareIndex, id}) =>
         handlelisteId={id}
       />
     </div>
-    <hr />
   </div>
 );
 
