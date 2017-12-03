@@ -1,0 +1,20 @@
+#login-dropdown-list {
+  left: 0;
+  right: 1vw;
+}
+
+#login-buttons .login-link-and-dropdown-list {
+    position: inherit;
+}
+
+@media only screen and (max-device-width: 480px) {
+
+  #login-dropdown-list {
+    font-size: 40px;
+    left: -20vw;
+  }
+
+  .accounts-dialog {
+    width: 75vw;
+  }
+}
