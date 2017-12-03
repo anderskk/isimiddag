@@ -103,21 +103,22 @@ class HandlelisterPage extends Component {
   renderStandardvisning(handleliste) {
     const gjeldende = this.state.gjeldendeHandleliste;
     const erGjeldende = gjeldende && gjeldende._id === handleliste._id;
-    const klasser = classnames({
+    const knappklasser = classnames({
       handlelisteItem: true,
       gjeldendeHandlelisteKnapp: erGjeldende
     });
-    // let classnames = "handlelisteItem";
-    // if (gjeldende && gjeldende._id === handleliste._id) {
-    //   classnames += " gjeldendeHandlelisteKnapp";
-    // }
+    const handlelisteklasser = classnames({
+      'pull-up': !erGjeldende,
+      'pull-down': erGjeldende
+    });
+
     return (
       <div>
         <div
           className="handlelisteItemWrapper"
           key={handleliste._id}>
           <button
-            className={ klasser }
+            className={ knappklasser }
             onClick={this.velgHandleliste.bind(this, handleliste)}
             ref="visHandleliste">
             { handleliste.tittel }
@@ -129,7 +130,9 @@ class HandlelisterPage extends Component {
             </button>
           </button>
         </div>
-        { erGjeldende && <Handleliste handleliste={ handleliste } /> }
+        <div className={ handlelisteklasser }>
+          <Handleliste handleliste={ handleliste } />
+        </div>
       </div>
     );
   }

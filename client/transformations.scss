@@ -1,0 +1,39 @@
+
+.pull-down {
+    animation-name: pullDown;
+    animation-duration: 0.3s;
+    animation-timing-function: ease;
+    transform-origin: 50% 0%;
+}
+
+.pull-up {
+    margin: 0;
+    overflow: hidden;
+    animation-duration: 0.3s;
+    animation-name: pullUp;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+    transform-origin: 50% 0%;
+}
+
+@keyframes pullDown {
+    0% {
+      opacity: 0;
+      font-size: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+@keyframes pullUp {
+    0% {
+      opacity: 1;
+      overflow: hidden;
+    }
+
+    100% {
+      font-size: 0;
+      opacity: 0;
+    }
+}
