@@ -140,11 +140,6 @@ ul {
   }
 }
 
-// .ny-handleliste-input {
-//   padding: 1em;
-//   font-size: 16px;
-// }
-
 .ny-handleliste-input {
   width: 1px;
   font-size: 16px;
@@ -254,27 +249,11 @@ header .hide-completed {
 
 @media only screen and (max-device-width: 480px) {
 
-  body {
-    font-size: 40px;
-  }
-
   .app-container {
     max-width: 100%;
     margin: 0 auto;
     min-height: 100%;
     background: white;
-  }
-
-  .hjem-lenke {
-    font-size: 1.5em !important;
-  }
-
-  .ny-handleliste-input {
-    font-size: 40px;
-  }
-
-  #gjeldendeHandleliste {
-    width: 100%;
   }
 
   .alleHandlelister {
@@ -283,27 +262,4 @@ header .hide-completed {
     }
   }
 
-  .handlelisteItem {
-    font-size: 40px;
-  }
-
-  .icon-knapp {
-    font-size: 0.7em;
-  }
-
-  .material-icons {
-    font-size: 2em;
-  }
-
-  .drag-handle {
-    top: 0.07em;
-  }
-
-  .ny-handleliste-input {
-    font-size: 40px;
-  }
-
-  .slett-nei {
-    margin-left: 0.5em;
-  }
 }
