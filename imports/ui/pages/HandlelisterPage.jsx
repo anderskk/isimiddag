@@ -19,39 +19,26 @@ class HandlelisterPage extends Component {
     super(props);
 
     this.state = {
-      gjeldendeHandleliste: null,
+      gjeldendeHandlelisteId: null,
       skalSlettes: null,
       skalOppretteNyHandleliste: false
     };
   }
 
-  componentWillReceiveProps(props) {
-    const handlelister = props.handlelister;
-    if (handlelister && handlelister.length > 0) {
-      if (this.state.gjeldendeHandleliste) {
-        const id = this.state.gjeldendeHandleliste._id;
-        const gjeldendeHandleliste = props.handlelister.find(liste =>
-          liste._id === id
-        );
-        // Må oppdatere gjeldende handleliste når vi henter alle varer for den
-        // som er trykket på
-        this.setState({ gjeldendeHandleliste });
-      }
-    } else {
-      this.setState({ gjeldendeHandleliste: null })
-    }
+  componentDidUpdate(prevProps) {
+    this.settNyhandlelisteSomGjeldende(prevProps);
   }
 
-  componentDidUpdate(prevProps) {
+  settNyhandlelisteSomGjeldende(prevProps) {
     const handlelister = this.props.handlelister;
-    const gjeldendeHandleliste = this.state.gjeldendeHandleliste;
+    const gjeldendeHandlelisteId = this.state.gjeldendeHandlelisteId;
 
     const handlelisterFinnes = handlelister && handlelister.length > 0;
     if (handlelisterFinnes) {
-      const handlelisterOppdatert = !gjeldendeHandleliste
+      const handlelisterOppdatert = !gjeldendeHandlelisteId
         || prevProps.handlelister.length < handlelister.length
       if (handlelisterOppdatert) {
-        this.setState({ gjeldendeHandleliste: handlelister[0] });
+        this.setState({ gjeldendeHandlelisteId: handlelister[0]._id });
       }
     }
   }
@@ -75,99 +62,23 @@ class HandlelisterPage extends Component {
     ReactDOM.findDOMNode(this.refs.opprettHandlelisteInput).value = '';
   }
 
-  // angiTittel(handlelisteId, event) {
-  //   event.preventDefault();
-  //
-  //   const tittelNode = ReactDOM.findDOMNode(this.refs.tittelInput);
-  //   let tittel = tittelNode.value.trim();
-  //   if (!tittel) {
-  //     tittel = formatterDato(new Date());
-  //   }
-  //
-  //   Meteor.call('handlelister.angiTittel', handlelisteId, tittel);
-  // }
-
-  velgHandleliste(handleliste, event) {
-    this.setState({ gjeldendeHandleliste: handleliste });
-    document.getElementById('gjeldendeHandleliste').scrollIntoView();
-  }
-
-  settSkalSlettes(handleliste) {
-    this.setState({ skalSlettes: handleliste })
-  }
-
-  slettHandleliste(handleliste, event) {
-    Meteor.call('handlelister.slett', handleliste._id);
-  }
-
-  renderStandardvisning(handleliste) {
-    const gjeldende = this.state.gjeldendeHandleliste;
-    const erGjeldende = gjeldende && gjeldende._id === handleliste._id;
-    const knappklasser = classnames({
-      handlelisteItem: true,
-      gjeldendeHandlelisteKnapp: erGjeldende
-    });
-    const handlelisteklasser = classnames({
-      'pull-up': !erGjeldende,
-      'pull-down': erGjeldende
-    });
+  renderHandlelister() {
+    const handlelister = this.props.handlelister;
+    const handelisterelementer = handlelister.map((handleliste, index) => {
+      const callback = () => this.setState({ gjeldendeHandlelisteId: handleliste._id });
+      return (
+        <Handleliste
+          key={ `handleliste-${index}` }
+          handleliste={ handleliste }
+          erGjeldende={ this.state.gjeldendeHandlelisteId === handleliste._id }
+          gjoerGjeldende={ callback } />
+    ) });
 
     return (
       <div>
-        <div
-          className="handlelisteItemWrapper"
-          key={handleliste._id}>
-          <button
-            className={ knappklasser }
-            onClick={this.velgHandleliste.bind(this, handleliste)}
-            ref="visHandleliste">
-            { handleliste.tittel }
-            <button
-              className="icon-knapp slettHandleliste"
-              onClick={this.settSkalSlettes.bind(this, handleliste)}
-              >
-              <i className="material-icons">clear</i>
-            </button>
-          </button>
-        </div>
-        <div className={ handlelisteklasser }>
-          <Handleliste handleliste={ handleliste } />
-        </div>
+        { handelisterelementer }
       </div>
     );
-  }
-
-  renderSkalSlettesVisning() {
-    const handleliste = this.state.skalSlettes;
-    return (
-      <div className="skal-slette-handleliste">
-        Slett handleliste?
-        <div>
-          <button
-            className="icon-knapp"
-            onClick={this.slettHandleliste.bind(this, handleliste)}>
-            <i className="material-icons">thumb_up</i>
-          </button>
-          <button
-            className="icon-knapp"
-            onClick={this.settSkalSlettes.bind(this, null)}>
-            <i className="material-icons slett-nei">thumb_down</i>
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  renderHandlelister() {
-    const handlelister = this.props.handlelister;
-    // TODO: Dra handlelister ut i egen component
-    return handlelister.map(handleliste => {
-      const skalSlettes = this.state.skalSlettes;
-      if (!!skalSlettes && handleliste._id === skalSlettes._id) {
-        return this.renderSkalSlettesVisning();
-      }
-      return this.renderStandardvisning(handleliste);
-    });
   }
 
   skalOppretteNyHandleliste(event) {
@@ -217,20 +128,12 @@ class HandlelisterPage extends Component {
   render() {
     const { currentUser } = this.props;
     const erInnlogget = !!currentUser;
-    let bruker;
-    if (erInnlogget) {
-      const brukernavn = currentUser.username;
-      const sisteBokstavIBrukernavn = brukernavn[brukernavn.length - 1];
-      bruker = sisteBokstavIBrukernavn === 's' ? brukernavn + '\'' : brukernavn + 's';
-    } else {
-      bruker = 'Mine';
-    }
 
     return (
       <div>
         <header>
           <div className="flex">
-            <h1>{bruker} handlelister</h1>
+            <h1>Mine handlelister</h1>
             { this.renderOpprettNyHandleliste() }
           </div>
         </header>
@@ -239,9 +142,6 @@ class HandlelisterPage extends Component {
           <ul className="alleHandlelister">
             { this.renderHandlelister() }
           </ul>
-
-          {/* { this.state.gjeldendeHandleliste &&
-            <Handleliste handleliste={ this.state.gjeldendeHandleliste } /> } */}
         </div>
       </div>
     );

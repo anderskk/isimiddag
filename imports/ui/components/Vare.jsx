@@ -65,13 +65,12 @@ export default class Vare extends Component {
 
   renderNyVare() {
     return (
-      <form className="ny-vare" onSubmit={this.leggTilVare.bind(this)} >
+      <form className="ny-vare" onSubmit={ this.leggTilVare.bind(this) } >
         <input
           type="text"
           id="ny-vare"
           ref="varenavnInput"
           placeholder="Ny vare"
-          onFocus={ this.onFocus }
           />
       </form>
     );
