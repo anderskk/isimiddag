@@ -11,14 +11,6 @@ import Task from './Task.jsx';
 import Oppskrift from './Oppskrift.jsx'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hideCompleted: false,
-    };
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
@@ -34,32 +26,7 @@ class App extends Component {
   leggTilOppskrift(event) {
     event.preventDefault();
 
-    Meteor.call('oppskrifter.insert', ['Chicken'], 'Chicken', 'U make da cheken', '20-30 minutes');
-  }
-
-  toggleHideCompleted() {
-    this.setState({
-      hideCompleted: !this.state.hideCompleted,
-    });
-  }
-
-  renderTasks() {
-    let filteredTasks = this.props.tasks;
-    if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => !task.checked);
-    }
-    return filteredTasks.map(task => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = task.owner === currentUserId;
-
-      return (
-        <Task
-          key={task._id}
-          task={task}
-          showPrivateButton={showPrivateButton}
-        />
-      );
-    });
+    Meteor.call('oppskrifter.insert', ['Chicken'], 'Chicken', 'U maek da cheken', '20-30 minutes');
   }
 
   renderOppskrifter() {
@@ -79,7 +46,10 @@ class App extends Component {
     return (
       <div>
         <header>
-          {`Oppskrifter er på vei! I mellomtiden, sjekk ut `}
+          <Link to='/oppskrifter' className="lenke">
+            Oppskrifter
+          </Link>
+          {` er på vei! I mellomtiden, sjekk ut `}
           <Link to='/handlelister' className="lenke">
             Handlelister
           </Link>
@@ -90,20 +60,15 @@ class App extends Component {
 }
 
 App.propTypes = {
-  tasks: PropTypes.array.isRequired,
   oppskrifter: PropTypes.array.isRequired,
-  incompleteCount: PropTypes.number.isRequired,
   currentUser: PropTypes.object
 };
 
 export default withTracker(() => {
-  Meteor.subscribe('tasks');
   Meteor.subscribe('oppskrifter');
 
   return {
-    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
     oppskrifter: Oppskrifter.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user()
   };
 })(App);
