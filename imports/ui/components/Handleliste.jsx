@@ -66,7 +66,6 @@ export default class Handleliste extends Component {
   };
 
   slettHandleliste = () => {
-    debugger;
     this.setState({ skalSlettes: false });
     Meteor.call('handlelister.slett', this.props.handleliste._id);
   };
@@ -137,13 +136,14 @@ export default class Handleliste extends Component {
     return (
       <div id={ `handleliste-${handleliste._id}` }
         className={ handlelisteklasser }>
-        { sorterbarVareliste }
-        {/* Burde kanskje ikke la Vare ta seg av dette? */}
-        <Vare
-          vare={ tomVare }
-          vareIndex={ handleliste.varer.length }
-          handlelisteId={ handleliste._id }
-          />
+        { erGjeldende && sorterbarVareliste }
+        { erGjeldende &&
+          <Vare
+            vare={ tomVare }
+            vareIndex={ handleliste.varer.length }
+            handlelisteId={ handleliste._id }
+            />
+        }
       </div>
     );
   }
@@ -155,7 +155,7 @@ export default class Handleliste extends Component {
           ? this.renderSkalSlettes()
           : this.renderTittel()
         }
-        { this.props.erGjeldende && this.renderVarer() }
+        { this.renderVarer() }
       </div>
     );
   }

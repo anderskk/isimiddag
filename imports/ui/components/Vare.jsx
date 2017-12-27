@@ -7,6 +7,14 @@ import { Handlelister } from '../../api/handlelister.js';
 
 export default class Vare extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      nyVareFokusert: false
+    };
+  }
+
   leggTilVare(event) {
     event.preventDefault();
 
@@ -24,6 +32,14 @@ export default class Vare extends Component {
     }
   }
 
+  settFokus = fokus => {
+    this.setState({ nyVareFokusert: fokus });
+    if (fokus) {
+      const varenavnNode = ReactDOM.findDOMNode(this.refs.varenavnInput);
+      varenavnNode.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   settUtfoert() {
     const { handlelisteId, vareIndex } = this.props;
     Meteor.call('handlelister.settVareUtfoert', handlelisteId, vareIndex);
@@ -34,44 +50,51 @@ export default class Vare extends Component {
     Meteor.call('handlelister.slettVare', handlelisteId, vare);
   }
 
-  onFocus() {
-    const varenavnNode = ReactDOM.findDOMNode(this.refs.varenavnInput);
-    varenavnNode.scrollIntoView({ behavior: "smooth" });
-  }
-
   renderVare() {
     const { vare, vareIndex } = this.props;
-    let vareClassName = 'varelinje';
-    if (vare.erUtfoert) {
-      vareClassName += ' utfoert';
-    }
+
+    const vareklasser = classnames({
+      varelinje: true,
+      utfoert: vare.erUtfoert
+    });
     const id = 'vareCheckbox' + vareIndex;
     return (
-      <div className={vareClassName}>
+      <div className={ vareklasser }>
         <input
           type="checkbox"
           className="vare-checkbox"
-          id={id}
+          id={ id }
           readOnly
-          checked={vare.erUtfoert}
-          onClick={this.settUtfoert.bind(this)}
+          checked={ vare.erUtfoert }
+          onClick={ this.settUtfoert.bind(this) }
           />
-          <label htmlFor={id} className="varenavn">
-            { vare.varenavn }
-          </label>
+        <label htmlFor={ id } className="varenavn">
+          { vare.varenavn }
+        </label>
       </div>
     );
   }
 
   renderNyVare() {
+    const klasser = classnames({
+      'mdl-textfield': true,
+      'mdl-js-textfield': true,
+      'mdl-textfield--floating-label': true,
+      'is-focused': this.state.nyVareFokusert
+    });
+
     return (
-      <form className="ny-vare" onSubmit={ this.leggTilVare.bind(this) } >
-        <input
-          type="text"
-          id="ny-vare"
-          ref="varenavnInput"
-          placeholder="Ny vare"
-          />
+      <form className="ny-vare" onSubmit={ this.leggTilVare.bind(this) }>
+        <div className={ klasser }>
+          <input
+            className="mdl-textfield__input"
+            type="text"
+            ref="varenavnInput"
+            onFocus={ () => this.settFokus(true) }
+            onBlur={ () => this.settFokus(false) }
+            id="ny-vare" />
+          <label className="mdl-textfield__label" htmlFor="ny-vare">Ny vare</label>
+        </div>
       </form>
     );
   }

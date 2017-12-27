@@ -1,19 +1,20 @@
-body {
-  font-family: sans-serif;
-  background-color: #315481;
-  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
-  background-attachment: fixed;
 
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.mdl-layout__header-row {
+  background-color: #00897b !important;
+}
 
-  padding: 0;
-  margin: 0;
+.mdl-layout__drawer {
+  color: #ffffff !important;
+  background: #2f2f2f !important;
+  border-right: 1px solid #555555 !important;
+}
 
-  font-size: 14px;
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+  color: #00cab5 !important;
+  font-weight: bold !important;
+  &:hover {
+    background-color: #626262 !important;
+  }
 }
 
 .navBar {
@@ -54,7 +55,6 @@ body {
 
 header {
   background: lightgrey;
-  padding: 20px 15px 15px 15px;
   position: relative;
 }
 
@@ -71,23 +71,11 @@ h1 {
 }
 
 .ny-vare {
-  padding: 1em 0 1em 1em;
-  input {
-    width: 90%;
-    padding: 0.7em 0 0.7em 0.5em;
-    box-sizing: border-box;
-    background: transparent;
-    font-size: 1em;
-    border: 1px solid #00897b;
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 10px #00897b;
-    }
-  }
+  margin: -0.5em 0.5em;
 }
 
 .gjeldendeHandlelisteKnapp {
-  background-color: #888;
+  background-color: #acacac;
 }
 
 ul {
@@ -133,7 +121,7 @@ ul {
   text-align: left;
   border-width: 0 !important;
   &:hover {
-    background-color: #888;
+    background-color: #b4b4b4;
   }
   &:focus {
     outline: none;
@@ -141,7 +129,6 @@ ul {
 }
 
 .ny-handleliste-input {
-  width: 1px;
   font-size: 16px;
   width: 1px;
   visibility: hidden;
@@ -235,14 +222,25 @@ header .hide-completed {
   justify-content: space-between;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
+.innhold-blokk {
+  padding: 0 1em;
+  > :last-child {
+    margin-bottom: 0.5em;
+  }
+}
+
 .drag-handle {
   position: relative;
-  top: 0.1em;
+  top: 0.3em;
   color: #00897b;
 }
 
 .vare-wrapper {
-  border-bottom: 1px solid;
+  border-bottom: 1px solid rgba(0,0,0,.12);
   padding: 0.25em 0;
   margin: 0 0.5em;
 }
@@ -256,7 +254,7 @@ header .hide-completed {
     background: white;
   }
 
-  .alleHandlelister {
+  .alle-handlelister {
     .handlelisteItemWrapper {
       width: 100vw;
     }

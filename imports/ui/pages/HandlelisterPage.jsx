@@ -132,14 +132,14 @@ class HandlelisterPage extends Component {
     return (
       <div>
         <header>
-          <div className="flex">
-            <h1>Mine handlelister</h1>
+          <div className="flex space-between innhold-blokk">
+            <h4>Mine handlelister</h4>
             { this.renderOpprettNyHandleliste() }
           </div>
         </header>
 
         <div className="flex">
-          <ul className="alleHandlelister">
+          <ul className="alle-handlelister">
             { this.renderHandlelister() }
           </ul>
         </div>
