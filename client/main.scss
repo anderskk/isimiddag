@@ -74,8 +74,11 @@ h1 {
   margin: -0.5em 0.5em;
 }
 
-.gjeldendeHandlelisteKnapp {
+.gjeldende-handleliste {
   background-color: #acacac !important;
+   > * {
+     background-color: #acacac !important;
+   }
 }
 
 ul {
@@ -92,11 +95,8 @@ ul {
   }
 }
 
-.slettHandleliste {
-  float: right;
+.slett-handleliste {
   font-weight: bold;
-  position: relative;
-  right: 1em;
   font-size: 1em !important;
 
   .material-icons {
@@ -104,30 +104,30 @@ ul {
   }
 }
 
-.vare-checkbox {
-  display: none;
+.skal-slette-handleliste {
+  padding: 1em;
+  background-color: #cccccc;
+  display: flex;
+  justify-content: space-between;
 }
 
-.handlelisteItemWrapper {
-  position: relative;
-  list-style: none;
+.handleliste-header {
+  display: flex;
+  justify-content: space-between;
   width: 15em;
   border-bottom: 1px solid white;
+  background-color: #cccccc;
+  > * {
+    background-color: #cccccc;
+  }
 }
 
-.handlelisteItem {
+.handleliste-tittel {
   padding: 1em;
   font-size: 16px;
   width: 100%;
   text-align: left;
   border-width: 0 !important;
-  background-color: #cccccc;
-  &:hover {
-    background-color: #b4b4b4;
-  }
-  &:focus {
-    outline: none;
-  }
 }
 
 .ny-handleliste-input {
@@ -218,13 +218,6 @@ header .hide-completed {
   }
 }
 
-.skal-slette-handleliste {
-  padding: 1em;
-  background-color: buttonface;
-  display: flex;
-  justify-content: space-between;
-}
-
 .space-between {
   justify-content: space-between;
 }
@@ -258,7 +251,7 @@ header .hide-completed {
   }
 
   .alle-handlelister {
-    .handlelisteItemWrapper {
+    .handleliste-header {
       width: 100vw;
     }
   }

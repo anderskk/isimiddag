@@ -70,51 +70,6 @@ export default class Handleliste extends Component {
     Meteor.call('handlelister.slett', this.props.handleliste._id);
   };
 
-  renderSkalSlettes() {
-    return (
-      <div className="skal-slette-handleliste">
-        Slett handleliste?
-        <div>
-          <button
-            className="icon-knapp"
-            onClick={ this.slettHandleliste }>
-            <i className="material-icons">thumb_up</i>
-          </button>
-          <button
-            className="icon-knapp"
-            onClick={ () => this.settSkalSlettes(false) }>
-            <i className="material-icons slett-nei">thumb_down</i>
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  renderTittel() {
-    const { handleliste, gjoerGjeldende, erGjeldende } = this.props;
-    const knappklasser = classnames({
-      handlelisteItem: true,
-      gjeldendeHandlelisteKnapp: erGjeldende
-    });
-
-    return (
-      <div className="handlelisteItemWrapper">
-        <div
-          className={ knappklasser }
-          onClick={ gjoerGjeldende }
-          ref="visHandleliste">
-          { handleliste.tittel }
-          <button
-            className="icon-knapp slettHandleliste"
-            onClick={ () => this.settSkalSlettes(true) }
-            >
-            <i className="material-icons">clear</i>
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   renderVarer() {
     const { handleliste, erGjeldende } = this.props;
 
@@ -149,12 +104,50 @@ export default class Handleliste extends Component {
   }
 
   render() {
+    const { handleliste, erGjeldende, gjoerGjeldende } = this.props;
+    const headerklasser = classnames({
+      'handleliste-header': true,
+      'gjeldende-handleliste': erGjeldende
+    });
+
+    let tittel, handlingelementer;
+    if (this.state.skalSlettes) {
+      tittel = 'Slett handleliste?';
+      handlingelementer = (
+        <div className="flex nowrap">
+          <button
+            className="icon-knapp"
+            onClick={ this.slettHandleliste }>
+            <i className="material-icons">thumb_up</i>
+          </button>
+          <button
+            className="icon-knapp"
+            onClick={ () => this.settSkalSlettes(false) }>
+            <i className="material-icons slett-nei">thumb_down</i>
+          </button>
+        </div>
+      );
+    } else {
+      tittel = handleliste.tittel;
+      handlingelementer = (
+        <button
+          className="icon-knapp slett-handleliste"
+          onClick={ () => this.settSkalSlettes(true) }
+          >
+          <i className="material-icons">clear</i>
+        </button>
+      );
+    }
+
     return (
       <div>
-        { this.state.skalSlettes
-          ? this.renderSkalSlettes()
-          : this.renderTittel()
-        }
+        <div className={ headerklasser }>
+          <div className="handleliste-tittel"
+            onClick={ gjoerGjeldende }>
+            { tittel }
+          </div>
+          { handlingelementer }
+        </div>
         { this.renderVarer() }
       </div>
     );
