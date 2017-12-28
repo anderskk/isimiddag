@@ -75,7 +75,7 @@ h1 {
 }
 
 .gjeldendeHandlelisteKnapp {
-  background-color: #acacac;
+  background-color: #acacac !important;
 }
 
 ul {
@@ -96,6 +96,7 @@ ul {
   float: right;
   font-weight: bold;
   position: relative;
+  right: 1em;
   font-size: 1em !important;
 
   .material-icons {
@@ -120,6 +121,7 @@ ul {
   width: 100%;
   text-align: left;
   border-width: 0 !important;
+  background-color: #cccccc;
   &:hover {
     background-color: #b4b4b4;
   }

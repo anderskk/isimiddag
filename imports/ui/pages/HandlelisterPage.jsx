@@ -35,8 +35,7 @@ class HandlelisterPage extends Component {
 
     const handlelisterFinnes = handlelister && handlelister.length > 0;
     if (handlelisterFinnes) {
-      const handlelisterOppdatert = !gjeldendeHandlelisteId
-        || prevProps.handlelister.length < handlelister.length
+      const handlelisterOppdatert = prevProps.handlelister.length < handlelister.length
       if (handlelisterOppdatert) {
         this.setState({ gjeldendeHandlelisteId: handlelister[0]._id });
       }
@@ -65,7 +64,13 @@ class HandlelisterPage extends Component {
   renderHandlelister() {
     const handlelister = this.props.handlelister;
     const handelisterelementer = handlelister.map((handleliste, index) => {
-      const callback = () => this.setState({ gjeldendeHandlelisteId: handleliste._id });
+      const callback = () => {
+        if (this.state.gjeldendeHandlelisteId === handleliste._id) {
+            this.setState({ gjeldendeHandlelisteId: null });
+        } else {
+          this.setState({ gjeldendeHandlelisteId: handleliste._id });
+        }
+      };
       return (
         <Handleliste
           key={ `handleliste-${index}` }

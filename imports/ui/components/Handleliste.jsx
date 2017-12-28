@@ -99,7 +99,7 @@ export default class Handleliste extends Component {
 
     return (
       <div className="handlelisteItemWrapper">
-        <button
+        <div
           className={ knappklasser }
           onClick={ gjoerGjeldende }
           ref="visHandleliste">
@@ -110,7 +110,7 @@ export default class Handleliste extends Component {
             >
             <i className="material-icons">clear</i>
           </button>
-        </button>
+        </div>
       </div>
     );
   }
