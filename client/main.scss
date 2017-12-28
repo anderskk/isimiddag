@@ -72,6 +72,13 @@ h1 {
 
 .ny-vare {
   margin: -0.5em 0.5em;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.legg-til-vare {
+  position: relative;
+  right: 2.5em;
 }
 
 .gjeldende-handleliste {

@@ -11,7 +11,8 @@ export default class Vare extends Component {
     super(props);
 
     this.state = {
-      nyVareFokusert: false
+      nyVareFokusert: false,
+      nyVareHarVerdi: false
     };
   }
 
@@ -27,6 +28,7 @@ export default class Vare extends Component {
         erUtfoert: false
       };
       Meteor.call('handlelister.leggTilVare', this.props.handlelisteId, vare);
+      this.setState({ nyVareHarVerdi: false });
 
       varenavnNode.value = '';
     }
@@ -48,6 +50,16 @@ export default class Vare extends Component {
   slettVare() {
     const { handlelisteId, varenavn } = this.props;
     Meteor.call('handlelister.slettVare', handlelisteId, vare);
+  }
+
+  onChange = () => {
+    const varenavnNode = ReactDOM.findDOMNode(this.refs.varenavnInput);
+    const varenavn = varenavnNode.value.trim();
+    if (varenavn && !this.state.nyVareHarVerdi) {
+      this.setState({ nyVareHarVerdi: true });
+    } else if (!varenavn && this.state.nyVareHarVerdi) {
+      this.setState({ nyVareHarVerdi: false });
+    }
   }
 
   renderVare() {
@@ -84,9 +96,17 @@ export default class Vare extends Component {
             ref="varenavnInput"
             onFocus={ () => this.settFokus(true) }
             onBlur={ () => this.settFokus(false) }
+            onChange={ this.onChange }
             id="ny-vare" />
           <label className="mdl-textfield__label" htmlFor="ny-vare">Ny vare</label>
         </div>
+        { this.state.nyVareHarVerdi &&
+          <button
+            onClick={ this.leggTilVare.bind(this) }
+            className="icon-knapp legg-til-vare">
+            <i className="material-icons nyHandleliste">add_circle_outline</i>
+          </button>
+        }
       </form>
     );
   }
