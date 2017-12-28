@@ -74,11 +74,17 @@ h1 {
   margin: -0.5em 0.5em;
   display: flex;
   flex-wrap: nowrap;
+  position: relative;
 }
 
 .legg-til-vare {
-  position: relative;
-  right: 2.5em;
+  position: absolute;
+    right: 0;
+    top: 1em;
+}
+
+.bruk-bredden {
+  width: 100% !important;
 }
 
 .gjeldende-handleliste {

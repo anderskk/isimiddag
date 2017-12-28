@@ -84,7 +84,8 @@ export default class Vare extends Component {
       'mdl-textfield': true,
       'mdl-js-textfield': true,
       'mdl-textfield--floating-label': true,
-      'is-focused': this.state.nyVareFokusert
+      'bruk-bredden': true,
+      'is-focused': this.state.nyVareFokusert || this.state.nyVareHarVerdi
     });
 
     return (
