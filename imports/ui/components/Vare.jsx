@@ -59,18 +59,10 @@ export default class Vare extends Component {
     });
     const id = 'vareCheckbox' + vareIndex;
     return (
-      <div className={ vareklasser }>
-        <input
-          type="checkbox"
-          className="vare-checkbox"
-          id={ id }
-          readOnly
-          checked={ vare.erUtfoert }
-          onClick={ this.settUtfoert.bind(this) }
-          />
-        <label htmlFor={ id } className="varenavn">
+      <div className={ vareklasser } onClick={ this.settUtfoert.bind(this) }>
+        <div className="varenavn">
           { vare.varenavn }
-        </label>
+        </div>
       </div>
     );
   }
